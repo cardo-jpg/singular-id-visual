@@ -90,26 +90,54 @@ def simbolo_monograma(cor=OURO, tam=200):
             '<path d="%s" fill="none" stroke="%s" stroke-width="2.6" stroke-linecap="round"/></svg>'
             % (tam, tam, tam, tam, x0, ''.join(corpo), onda, cor))
 
+
+# ---------------------------------------------------------------- simbolo C
+def simbolo_janela(cor=OURO, larg=170, alt=240, traco=2.6):
+    """A janela: arco que emoldura os Dois Irmaos e a linha do mar.
+    Monolinha, sem preenchimento. O arco le como vao de janela, que e o que
+    a Singular vende: a vista e o endereco."""
+    p = []
+    # arco: base reta, topo em meia-volta
+    p.append('<path d="M 22 224 L 22 96 A 63 63 0 0 1 148 96 L 148 224 Z" '
+             'fill="none" stroke="%s" stroke-width="%.1f" stroke-linejoin="round"/>' % (cor, traco))
+    # Dois Irmaos: dois picos assimetricos, em linha
+    p.append('<path d="M 40 178 L 66 134 L 84 156 L 106 124 L 132 178" '
+             'fill="none" stroke="%s" stroke-width="%.1f" stroke-linecap="round" stroke-linejoin="round"/>'
+             % (cor, traco))
+    # o mar: tres linhas retas, decrescentes
+    for y, x0, x1 in ((192, 42, 130), (203, 56, 116), (214, 70, 102)):
+        p.append('<path d="M %d %d L %d %d" stroke="%s" stroke-width="%.1f" stroke-linecap="round"/>'
+                 % (x0, y, x1, y, cor, traco))
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" width="%d" height="%d">%s</svg>'
+            % (larg, alt, larg, alt, ''.join(p)))
+
 # ---------------------------------------------------------------- lockups
 def assinatura(cor_texto, cor_simbolo, vertical=False, com_simbolo=True, simbolo='emblema'):
     nome_p, nome_l = curvas(CORM, 500, 'SINGULAR PRIME', 68, tracking=0.13)
     desc_p, desc_l = curvas(JOST, 400, 'CONSULTORIA IMOBILIÁRIA', 15.5, tracking=0.34)
-    sim = simbolo_emblema(cor_simbolo) if simbolo == 'emblema' else simbolo_monograma(cor_simbolo)
+    if simbolo == 'emblema':   sim = simbolo_emblema(cor_simbolo)
+    elif simbolo == 'janela':  sim = simbolo_janela(cor_simbolo)
+    else:                      sim = simbolo_monograma(cor_simbolo)
     sim_interno = sim.split('>', 1)[1].rsplit('</svg>', 1)[0]
 
     if vertical:
         larg = max(nome_l, desc_l, 200)
-        alt = 300
-        corpo = ['<g transform="translate(%.2f 0) scale(0.62)">%s</g>' % ((larg - 124) / 2, sim_interno)]
-        corpo.append('<g transform="translate(%.2f 0)">%s</g>' % ((larg - nome_l) / 2, render(nome_p, 208, cor_texto)))
-        corpo.append('<g transform="translate(%.2f 0)">%s</g>' % ((larg - desc_l) / 2, render(desc_p, 240, cor_texto)))
+        alt = 300 if simbolo != 'janela' else 340
+        esc_v = 0.62 if simbolo == 'janela' else 0.62
+        marca_l = 170 * esc_v if simbolo == 'janela' else 124
+        corpo = ['<g transform="translate(%.2f 0) scale(%.2f)">%s</g>' % ((larg - marca_l) / 2, esc_v, sim_interno)]
+        base_nome = 208 if simbolo != 'janela' else 248
+        corpo.append('<g transform="translate(%.2f 0)">%s</g>' % ((larg - nome_l) / 2, render(nome_p, base_nome, cor_texto)))
+        corpo.append('<g transform="translate(%.2f 0)">%s</g>' % ((larg - desc_l) / 2, render(desc_p, base_nome + 32, cor_texto)))
     else:
         sx = 104.0
         larg = (sx + 34 if com_simbolo else 0) + max(nome_l, desc_l)
         alt = 120
         corpo = []
         if com_simbolo:
-            corpo.append('<g transform="translate(0 4) scale(0.56)">%s</g>' % sim_interno)
+            esc_s = 0.46 if simbolo == 'janela' else 0.56
+            dy = 2 if simbolo == 'janela' else 4
+            corpo.append('<g transform="translate(0 %d) scale(%.2f)">%s</g>' % (dy, esc_s, sim_interno))
         base = (sx + 34) if com_simbolo else 0
         corpo.append('<g transform="translate(%.2f 0)">%s</g>' % (base, render(nome_p, 62, cor_texto)))
         corpo.append('<g transform="translate(%.2f 0)">%s</g>' % (base, render(desc_p, 92, cor_texto)))
@@ -117,6 +145,12 @@ def assinatura(cor_texto, cor_simbolo, vertical=False, com_simbolo=True, simbolo
             % (larg, alt, larg, alt, ''.join(corpo)))
 
 arquivos = {
+    'simbolo_janela_ouro.svg':       simbolo_janela(OURO),
+    'simbolo_janela_navy.svg':       simbolo_janela(NAVY),
+    'janela_horizontal.svg':         assinatura(NAVY, OURO, simbolo='janela'),
+    'janela_horizontal_clara.svg':   assinatura(OFFWHITE, OURO_CLARO, simbolo='janela'),
+    'janela_vertical.svg':           assinatura(NAVY, OURO, vertical=True, simbolo='janela'),
+    'janela_vertical_clara.svg':     assinatura(OFFWHITE, OURO_CLARO, vertical=True, simbolo='janela'),
     'simbolo_emblema_ouro.svg':      simbolo_emblema(OURO),
     'simbolo_emblema_navy.svg':      simbolo_emblema(NAVY),
     'simbolo_monograma_ouro.svg':    simbolo_monograma(OURO),
