@@ -111,22 +111,90 @@ def simbolo_janela(cor=OURO, larg=170, alt=240, traco=2.6):
     return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" width="%d" height="%d">%s</svg>'
             % (larg, alt, larg, alt, ''.join(p)))
 
+
+# ---------------------------------------------------------------- simbolo D
+def _pao_de_acucar(traco, cor, y_base=186):
+    """Morro da Urca (menor, esquerda) + Pao de Acucar (maior, direita).
+    Domos arredondados, nao triangulos: e o perfil que o carioca reconhece."""
+    # ovoides: arco de elipse mais alta que larga. E a forma que le como
+    # Pao de Acucar mesmo reduzida (o proprio logo do supermercado usa isso).
+    urca = 'M 32 %d A 30 36 0 0 1 92 %d' % (y_base, y_base)
+    pao  = 'M 80 %d A 40 54 0 0 1 160 %d' % (y_base, y_base)
+    molde = ('<path d="%s" fill="none" stroke="%s" stroke-width="%.1f" '
+             'stroke-linecap="round" stroke-linejoin="round"/>')
+    chao = ('<path d="M 22 %d L 170 %d" fill="none" stroke="%s" stroke-width="%.1f" '
+            'stroke-linecap="round"/>' % (y_base, y_base, cor, traco))
+    return (molde % (urca, cor, traco)) + (molde % (pao, cor, traco)) + chao
+
+def _mar(traco, cor, ys=(205, 219), meia=64, ondas=2.0):
+    """O calcadao: bandas sinuosas de amplitude larga, no ritmo do desenho
+    de Burle Marx, em vez de ondinhas genericas."""
+    out = []
+    for k, y in enumerate(ys):
+        m = meia - k * 18
+        x0, x1 = 96 - m, 96 + m
+        largura = (x1 - x0) / ondas
+        d = 'M %.1f %.1f ' % (x0, y)
+        for i in range(int(ondas)):
+            d += 'c %.1f -9, %.1f -9, %.1f 0 ' % (largura * 0.18, largura * 0.32, largura * 0.5)
+            d += 'c %.1f 9, %.1f 9, %.1f 0 ' % (largura * 0.18, largura * 0.32, largura * 0.5)
+        out.append('<path d="%s" fill="none" stroke="%s" stroke-width="%.1f" stroke-linecap="round"/>'
+                   % (d.strip(), cor, traco))
+    return ''.join(out)
+
+def padrao_calcadao(cor=OURO, fundo=AREIA, larg=520, alt=260, linhas=5, traco=9):
+    """Textura da marca: o calcadao em bandas largas, para fundo de peca."""
+    p = ['<rect width="%d" height="%d" fill="%s"/>' % (larg, alt, fundo)]
+    for i in range(linhas):
+        y = 18 + i * (alt - 36) / (linhas - 1)
+        d = 'M -40 %.1f ' % y
+        for _ in range(5):
+            d += 'c 28 -30, 84 -30, 112 0 c 28 30, 84 30, 112 0 '
+        p.append('<path d="%s" fill="none" stroke="%s" stroke-width="%d" stroke-linecap="round" opacity="0.5"/>'
+                 % (d.strip(), cor, traco))
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" width="%d" height="%d">%s</svg>'
+            % (larg, alt, larg, alt, ''.join(p)))
+
+def simbolo_pao_arco(cor=OURO, larg=196, alt=258, traco=2.6):
+    """Pao de Acucar e mar, emoldurados pelo arco da janela."""
+    p = ['<path d="M 12 232 L 12 100 A 78 78 0 0 1 168 100 L 168 232 Z" '
+         'fill="none" stroke="%s" stroke-width="%.1f" stroke-linejoin="round"/>' % (cor, traco)]
+    p.append(_pao_de_acucar(traco, cor))
+    p.append(_mar(traco, cor))
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 %d %d" width="%d" height="%d">%s</svg>'
+            % (larg, alt, larg, alt, ''.join(p)))
+
+def simbolo_pao_circulo(cor=OURO, tam=200, traco=2.6):
+    """Mesmo desenho, dentro de circulo."""
+    p = ['<circle cx="96" cy="160" r="100" fill="none" stroke="%s" stroke-width="%.1f"/>' % (cor, traco)]
+    p.append(_pao_de_acucar(traco, cor))
+    p.append(_mar(traco, cor))
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="-8 56 208 208" width="%d" height="%d">%s</svg>'
+            % (tam, tam, ''.join(p)))
+
+def simbolo_pao_livre(cor=OURO, larg=180, alt=130, traco=2.8):
+    """Sem moldura: so o perfil e o mar."""
+    return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="22 124 152 100" width="%d" height="%d">%s%s</svg>'
+            % (larg, alt, _pao_de_acucar(traco, cor), _mar(traco, cor)))
+
 # ---------------------------------------------------------------- lockups
 def assinatura(cor_texto, cor_simbolo, vertical=False, com_simbolo=True, simbolo='emblema'):
     nome_p, nome_l = curvas(CORM, 500, 'SINGULAR PRIME', 68, tracking=0.13)
     desc_p, desc_l = curvas(JOST, 400, 'CONSULTORIA IMOBILIÁRIA', 15.5, tracking=0.34)
-    if simbolo == 'emblema':   sim = simbolo_emblema(cor_simbolo)
+    if simbolo == 'pao':       sim = simbolo_pao_arco(cor_simbolo)
+    elif simbolo == 'pao_circulo': sim = simbolo_pao_circulo(cor_simbolo)
+    elif simbolo == 'emblema': sim = simbolo_emblema(cor_simbolo)
     elif simbolo == 'janela':  sim = simbolo_janela(cor_simbolo)
     else:                      sim = simbolo_monograma(cor_simbolo)
     sim_interno = sim.split('>', 1)[1].rsplit('</svg>', 1)[0]
 
     if vertical:
         larg = max(nome_l, desc_l, 200)
-        alt = 300 if simbolo != 'janela' else 340
-        esc_v = 0.62 if simbolo == 'janela' else 0.62
-        marca_l = 170 * esc_v if simbolo == 'janela' else 124
+        alt = 340 if simbolo in ('janela','pao') else 300
+        esc_v = 0.60 if simbolo in ('janela','pao') else 0.62
+        marca_l = (180 if simbolo=='pao' else 170) * esc_v if simbolo in ('janela','pao') else 124
         corpo = ['<g transform="translate(%.2f 0) scale(%.2f)">%s</g>' % ((larg - marca_l) / 2, esc_v, sim_interno)]
-        base_nome = 208 if simbolo != 'janela' else 248
+        base_nome = 248 if simbolo in ('janela','pao') else 208
         corpo.append('<g transform="translate(%.2f 0)">%s</g>' % ((larg - nome_l) / 2, render(nome_p, base_nome, cor_texto)))
         corpo.append('<g transform="translate(%.2f 0)">%s</g>' % ((larg - desc_l) / 2, render(desc_p, base_nome + 32, cor_texto)))
     else:
@@ -135,7 +203,7 @@ def assinatura(cor_texto, cor_simbolo, vertical=False, com_simbolo=True, simbolo
         alt = 120
         corpo = []
         if com_simbolo:
-            esc_s = 0.46 if simbolo == 'janela' else 0.56
+            esc_s = 0.44 if simbolo in ('janela','pao') else 0.56
             dy = 2 if simbolo == 'janela' else 4
             corpo.append('<g transform="translate(0 %d) scale(%.2f)">%s</g>' % (dy, esc_s, sim_interno))
         base = (sx + 34) if com_simbolo else 0
@@ -145,6 +213,15 @@ def assinatura(cor_texto, cor_simbolo, vertical=False, com_simbolo=True, simbolo
             % (larg, alt, larg, alt, ''.join(corpo)))
 
 arquivos = {
+    'padrao_calcadao.svg':      padrao_calcadao(),
+    'padrao_calcadao_navy.svg': padrao_calcadao(OURO, NAVY),
+    'pao_arco_ouro.svg':        simbolo_pao_arco(OURO),
+    'pao_circulo_ouro.svg':     simbolo_pao_circulo(OURO),
+    'pao_livre_ouro.svg':       simbolo_pao_livre(OURO),
+    'pao_horizontal.svg':       assinatura(NAVY, OURO, simbolo='pao'),
+    'pao_horizontal_clara.svg': assinatura(OFFWHITE, OURO_CLARO, simbolo='pao'),
+    'pao_vertical.svg':         assinatura(NAVY, OURO, vertical=True, simbolo='pao'),
+    'pao_vertical_clara.svg':   assinatura(OFFWHITE, OURO_CLARO, vertical=True, simbolo='pao'),
     'simbolo_janela_ouro.svg':       simbolo_janela(OURO),
     'simbolo_janela_navy.svg':       simbolo_janela(NAVY),
     'janela_horizontal.svg':         assinatura(NAVY, OURO, simbolo='janela'),
