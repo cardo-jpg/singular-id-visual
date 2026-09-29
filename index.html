@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Identidade visual · Singular · Cardô</title>
+<style>
+  :root{
+    --ink:#000; --muted:#555; --line:#d9d9d9; --line2:#ececec;
+    --paper:#f7f7f7; --card:#fcfcfc;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#e9e9e9;line-height:1.5;}
+
+  .slide{
+    width:1280px;height:720px;background:#fff;margin:0 auto 18px;padding:62px 74px;
+    position:relative;display:flex;flex-direction:column;overflow:hidden;
+  }
+  .n{position:absolute;right:38px;bottom:28px;font-size:12px;color:var(--muted);}
+  .tag{position:absolute;left:74px;top:34px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);}
+  h1{font-size:62px;line-height:1.05;letter-spacing:-.02em;}
+  h2{font-size:38px;line-height:1.1;letter-spacing:-.01em;margin-bottom:6px;}
+  h3{font-size:19px;margin-bottom:4px;}
+  p{font-size:18px;max-width:80ch;}
+  .lead{font-size:21px;color:#111;margin-top:18px;max-width:66ch;}
+  .sub{font-size:16px;color:var(--muted);margin-top:8px;}
+  .mt{margin-top:22px;} .mt2{margin-top:34px;}
+  b{font-weight:bold;}
+
+  .capa{justify-content:center;}
+  .capa .marca{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:26px;}
+  .capa .rule{width:120px;height:3px;background:#000;margin:28px 0;}
+  .capa .meta{font-size:15px;color:var(--muted);}
+
+  .cols{display:flex;gap:26px;margin-top:30px;align-items:stretch;}
+  .col{flex:1;border:1px solid var(--line);border-radius:10px;padding:24px 26px;background:var(--card);}
+  .col .h{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:bold;margin-bottom:12px;}
+  .col ul{margin-left:18px;font-size:16.5px;}
+  .col li{margin-top:9px;}
+
+  .lista{margin-top:20px;}
+  .li{display:flex;gap:16px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--line2);}
+  .li:last-child{border-bottom:none;}
+  .li .b{flex:none;width:28px;height:28px;border:2px solid #000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:bold;}
+  .li .tx{font-size:17.5px;}
+  .li .tx b{display:block;font-size:18.5px;}
+  .li .tx span{color:var(--muted);}
+
+  .passos{display:flex;gap:0;margin-top:30px;}
+  .passo{flex:1;border-top:3px solid #000;padding:16px 18px 0 0;}
+  .passo .q{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+  .passo .t{font-size:18px;font-weight:bold;margin-top:8px;}
+  .passo .d{font-size:15px;color:var(--muted);margin-top:6px;}
+
+  /* demonstracoes visuais */
+  .demo{display:flex;gap:22px;margin-top:26px;flex:1;align-items:stretch;}
+  .demo .box{flex:1;border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;}
+  .demo .box .cap{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;font-weight:bold;}
+  .grade{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;flex:1;}
+  .grade div{border-radius:3px;}
+  .bagunca div:nth-child(1){background:#7a8fa6}.bagunca div:nth-child(2){background:#c8b89a}
+  .bagunca div:nth-child(3){background:#3f5d3a}.bagunca div:nth-child(4){background:#d8d2c6}
+  .bagunca div:nth-child(5){background:#2b2b2b}.bagunca div:nth-child(6){background:#9d6b4f}
+  .bagunca div:nth-child(7){background:#e8e2d5}.bagunca div:nth-child(8){background:#55707f}
+  .bagunca div:nth-child(9){background:#b7a07a}
+  .certa div{background:#cfc7b8}
+  .certa div:nth-child(2),.certa div:nth-child(6),.certa div:nth-child(7){background:#b3a894}
+  .certa div:nth-child(4),.certa div:nth-child(9){background:#8a8371}
+
+  .swatches{display:flex;gap:10px;margin-top:12px;}
+  .sw{flex:1;height:64px;border-radius:6px;border:1px solid rgba(0,0,0,.08);}
+  .peca{border:1px solid var(--line);border-radius:8px;height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:16px;background:#f2efe9;}
+  .peca .top{font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:#6b6553;}
+  .peca .mid{font-size:26px;line-height:1.15;}
+  .peca .bot{font-size:12px;color:#6b6553;}
+
+  .aplic{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px;flex:1;}
+  .ap{border:1px solid var(--line);border-radius:10px;padding:18px 20px;background:var(--card);}
+  .ap .t{font-size:17px;font-weight:bold;}
+  .ap .d{font-size:15px;color:var(--muted);margin-top:6px;}
+
+  .preco{display:flex;align-items:flex-end;gap:28px;margin-top:26px;}
+  .preco .v{font-size:86px;font-weight:bold;letter-spacing:-.03em;line-height:1;}
+  .preco .obs{font-size:17px;color:var(--muted);padding-bottom:10px;}
+  .caixa{border:1px solid var(--line);border-left:4px solid #000;border-radius:0 10px 10px 0;padding:18px 22px;margin-top:26px;font-size:17px;background:var(--paper);max-width:88ch;}
+
+  @page{size:1280px 720px;margin:0;}
+  @media print{body{background:#fff;} .slide{margin:0;page-break-after:always;box-shadow:none;}}
+  @media screen{.slide{box-shadow:0 2px 14px rgba(0,0,0,.14);}}
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide capa">
+  <div class="marca">Cardô Marketing · proposta para a Singular</div>
+  <h1>Identidade visual:<br>a cara da Singular</h1>
+  <div class="rule"></div>
+  <p class="lead">O que é, por que ela vem antes do Instagram e do site, o que vocês recebem e como funciona na prática.</p>
+  <div class="meta" style="margin-top:34px">Setembro de 2026</div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="tag">O momento</div>
+  <h2>Os anúncios já estão trazendo gente.</h2>
+  <p class="lead">Em um mês de campanha, mais de 30 pessoas chamaram a Singular. Elas viram o anúncio, se interessaram e fizeram o que todo mundo faz antes de falar sobre um imóvel de milhões: <b>foram procurar quem é a empresa.</b></p>
+  <p class="lead" style="margin-top:16px">E não encontraram nada. Nem perfil montado, nem site, nem uma marca que se repita.</p>
+  <div class="caixa"><b>No alto padrão, isso pesa mais que o preço.</b> Ninguém entrega uma negociação desse tamanho para uma empresa que parece recém-improvisada. A identidade visual é o primeiro passo para resolver isso, e é dela que todo o resto depende.</div>
+  <div class="n">2</div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="tag">O que é</div>
+  <h2>Identidade visual não é só a logo.</h2>
+  <p class="sub" style="font-size:18px;margin-top:10px">É o conjunto de regras que faz tudo o que a Singular publica parecer da mesma empresa.</p>
+  <div class="cols">
+    <div class="col"><div class="h">Logo</div><p style="font-size:16.5px">O símbolo e o nome, em versões para cada uso: o perfil redondo do Instagram, o topo do site, a placa, o rodapé de um anúncio.</p></div>
+    <div class="col"><div class="h">Cores e tipografia</div><p style="font-size:16.5px">A paleta e as letras oficiais. São elas que fazem alguém reconhecer um post de vocês antes de ler o nome.</p></div>
+    <div class="col"><div class="h">Modelos</div><p style="font-size:16.5px">Artes já montadas, onde a equipe troca a foto e o texto do imóvel e o post sai pronto, sempre no mesmo padrão.</p></div>
+  </div>
+  <div class="n">3</div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="tag">Por que importa</div>
+  <h2>A diferença aparece no conjunto.</h2>
+  <p class="sub" style="font-size:18px;margin-top:10px">O cliente não julga um post. Ele abre o perfil e julga a grade inteira, em dois segundos.</p>
+  <div class="demo">
+    <div class="box"><div class="cap">Sem identidade definida</div><div class="grade bagunca"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><p style="font-size:15px;color:var(--muted);margin-top:14px">Cada peça com uma cara. Lê como amador, mesmo com fotos boas.</p></div>
+    <div class="box"><div class="cap">Com identidade definida</div><div class="grade certa"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><p style="font-size:15px;color:var(--muted);margin-top:14px">Mesma paleta, mesmo respiro. Lê como marca estabelecida.</p></div>
+  </div>
+  <div class="n">4</div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="tag">O que vocês recebem</div>
+  <h2>Os entregáveis</h2>
+  <div class="lista">
+    <div class="li"><span class="b">1</span><span class="tx"><b>Logo em três versões</b><span>Horizontal, vertical e só o símbolo, para a foto de perfil. Cada uma em versão para fundo claro e fundo escuro.</span></span></div>
+    <div class="li"><span class="b">2</span><span class="tx"><b>Paleta de cores e tipografia</b><span>As cores oficiais e as fontes que a Singular passa a usar em tudo.</span></span></div>
+    <div class="li"><span class="b">3</span><span class="tx"><b>Três modelos de post editáveis</b><span>Para a equipe publicar imóvel novo sem depender de designer a cada vez.</span></span></div>
+    <div class="li"><span class="b">4</span><span class="tx"><b>Capas dos destaques do Instagram</b><span>Aquelas bolinhas abaixo da bio, no padrão da marca.</span></span></div>
+    <div class="li"><span class="b">5</span><span class="tx"><b>Arquivos em PNG, JPG e vetor</b><span>Entregues em pasta compartilhada. O vetor é o que permite ampliar sem perder qualidade, para placa e fachada.</span></span></div>
+  </div>
+  <div class="n">5</div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="tag">O que vocês recebem</div>
+  <h2>Como isso chega na prática</h2>
+  <div class="demo">
+    <div class="box"><div class="cap">Paleta</div>
+      <div class="swatches"><div class="sw" style="background:#2e3a34"></div><div class="sw" style="background:#8a8371"></div><div class="sw" style="background:#cfc7b8"></div><div class="sw" style="background:#f2efe9"></div></div>
+      <p style="font-size:15px;color:var(--muted);margin-top:14px">Exemplo de direção: tons neutros e sóbrios, que é o que o mercado de alto padrão usa. A paleta real sai do briefing com vocês.</p>
+      <div style="margin-top:auto"></div>
+      <div class="cap" style="margin-top:20px">Tipografia</div>
+      <div style="font-size:30px">Aa <span style="color:var(--muted);font-size:17px">título</span></div>
+      <div style="font-size:17px;margin-top:4px">Aa <span style="color:var(--muted)">texto corrido</span></div>
+    </div>
+    <div class="box"><div class="cap">Modelo de post</div>
+      <div class="peca">
+        <div class="top">Singular</div>
+        <div class="mid">Cobertura<br>em Ipanema</div>
+        <div class="bot">3 suítes · 187m² · vista para a Lagoa</div>
+      </div>
+      <p style="font-size:15px;color:var(--muted);margin-top:14px">O mesmo molde recebe qualquer imóvel. Troca a foto e o texto, o padrão se mantém.</p>
+    </div>
+  </div>
+  <div class="n">6</div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="tag">Como funciona</div>
+  <h2>Quatro etapas, 7 dias úteis</h2>
+  <div class="passos">
+    <div class="passo"><div class="q">Etapa 1</div><div class="t">Briefing</div><div class="d">Uma conversa curta: o que vocês admiram, o que não querem e como querem ser vistos.</div></div>
+    <div class="passo"><div class="q">Etapa 2</div><div class="t">Duas propostas</div><div class="d">Apresentamos dois caminhos de logo. Vocês escolhem um.</div></div>
+    <div class="passo"><div class="q">Etapa 3</div><div class="t">Uma rodada de ajustes</div><div class="d">Vocês apontam o que mudar no caminho escolhido e nós refinamos.</div></div>
+    <div class="passo"><div class="q">Etapa 4</div><div class="t">Entrega</div><div class="d">Todos os arquivos em pasta compartilhada, prontos para usar.</div></div>
+  </div>
+  <div class="caixa" style="margin-top:32px">O prazo de <b>7 dias úteis</b> começa a contar quando recebermos as referências. Ajustes além da primeira rodada, ou mudança de caminho depois de algo aprovado, são orçados à parte. É isso que mantém o prazo em pé e o valor onde está.</div>
+  <div class="n">7</div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="tag">Como funciona</div>
+  <h2>O que precisamos de vocês</h2>
+  <p class="sub" style="font-size:18px;margin-top:10px">Quatro coisas. Nenhuma toma mais que meia hora.</p>
+  <div class="lista">
+    <div class="li"><span class="b">1</span><span class="tx"><b>O nome confirmado</b><span>Singular Prime ou o que sair da análise jurídica. Nada começa antes disso.</span></span></div>
+    <div class="li"><span class="b">2</span><span class="tx"><b>De três a cinco marcas que vocês admiram</b><span>De qualquer ramo, não precisa ser imobiliária. E o que gostam em cada uma.</span></span></div>
+    <div class="li"><span class="b">3</span><span class="tx"><b>Três palavras de como querem ser vistos</b><span>Por exemplo: discreta, sofisticada, próxima.</span></span></div>
+    <div class="li"><span class="b">4</span><span class="tx"><b>Uma pessoa que aprova</b><span>Decisão de marca por comitê não fecha. Uma pessoa decide, as outras opinam antes.</span></span></div>
+  </div>
+  <div class="n">8</div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <div class="tag">Depois da entrega</div>
+  <h2>Onde a identidade vai aparecer</h2>
+  <p class="sub" style="font-size:18px;margin-top:10px">Ela não termina em si mesma. É a base do que vem depois.</p>
+  <div class="aplic">
+    <div class="ap"><div class="t">Instagram</div><div class="d">Foto de perfil, capas de destaque e os posts, todos no mesmo padrão.</div></div>
+    <div class="ap"><div class="t">Anúncios</div><div class="d">As peças que já estão rodando passam a ter a cara de vocês, não um layout genérico.</div></div>
+    <div class="ap"><div class="t">Site</div><div class="d">Nasce com a identidade pronta, sem retrabalho.</div></div>
+    <div class="ap"><div class="t">Google</div><div class="d">A logo no perfil que aparece na busca e no mapa.</div></div>
+    <div class="ap"><div class="t">Placas e materiais</div><div class="d">O arquivo em vetor permite ampliar para qualquer tamanho.</div></div>
+    <div class="ap"><div class="t">E-mail e documentos</div><div class="d">Assinatura e propostas com a mesma assinatura visual.</div></div>
+  </div>
+  <div class="n">9</div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <div class="tag">Investimento</div>
+  <h2>Valor</h2>
+  <div class="preco"><div class="v">R$ 600</div><div class="obs">valor único, em duas vezes<br>metade no início, metade na entrega</div></div>
+  <div class="caixa" style="margin-top:34px">Para referência, o mercado brasileiro cobra entre <b>R$ 2.500 e R$ 4.990</b> por um pacote equivalente. Conseguimos ficar abaixo porque a produção usa inteligência artificial na parte de execução e porque já conhecemos a operação de vocês. A direção criativa e a revisão continuam sendo trabalho humano.</div>
+  <p class="sub" style="margin-top:22px">Não inclui: manual de marca extenso, papelaria impressa, cartão de visita, placas e fachada.</p>
+  <div class="n">10</div>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <div class="tag">Próximo passo</div>
+  <h2>Para começar esta semana</h2>
+  <div class="lista" style="margin-top:26px">
+    <div class="li"><span class="b">1</span><span class="tx"><b>Confirmar o nome</b><span>É o que destrava a identidade, o endereço do site e o perfil no Google.</span></span></div>
+    <div class="li"><span class="b">2</span><span class="tx"><b>Aprovar esta proposta</b><span>Basta responder que sim, e definimos quem será a pessoa que aprova.</span></span></div>
+    <div class="li"><span class="b">3</span><span class="tx"><b>Agendar o briefing</b><span>Meia hora. Na saída dele, o prazo de 7 dias começa a correr.</span></span></div>
+  </div>
+  <div class="caixa" style="margin-top:34px"><b>Uma observação de ordem:</b> enquanto a identidade não sai, o Instagram e o site ficam parados, e os anúncios seguem rodando com peças sem a cara de vocês. É o gargalo da vez.</div>
+  <div style="margin-top:auto;font-size:15px;color:var(--muted)">Cardô Marketing · agencia@cardomarketing.com.br</div>
+  <div class="n">11</div>
+</section>
+
+</body>
+</html>
