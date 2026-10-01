@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Singular Prime · board de marca</title>
+<style>
+  :root{
+    --areia:#F4EFE6; --fendi:#D9C8B0; --verde:#5E6F68; --azul:#88A1A0;
+    --terracota:#C79C7C; --grafite:#232A27; --ouro:#B08D4F; --ouro-cl:#CBA96A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{width:1760px;background:#fff;overflow:hidden;font-family:'Jost',Arial,sans-serif;color:var(--grafite);}
+
+  .board{width:1760px;}
+  .topo{padding:54px 0 34px;text-align:center;background:#fff;}
+  .topo img{height:112px;}
+  .topo .cat{font-size:11px;letter-spacing:.42em;color:#8A8578;margin-top:22px;}
+
+  .grade{display:grid;grid-template-columns:1.52fr 1fr;grid-template-rows:auto auto;gap:14px;padding:0 54px;}
+
+  /* hero com a parede */
+  .hero{grid-row:span 2;position:relative;border-radius:2px;overflow:hidden;min-height:700px;
+        background:url('../texturas/parede_limpa.jpg') center/cover;display:flex;align-items:center;justify-content:center;}
+  .hero img{width:68%;filter:drop-shadow(0 2px 14px rgba(35,42,39,.10));}
+
+  .escuro{background:var(--grafite);display:flex;align-items:center;justify-content:center;padding:54px;min-height:343px;border-radius:2px;}
+  .escuro img{width:74%;}
+
+  .dupla{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .mono{background:var(--fendi);display:flex;align-items:center;justify-content:center;border-radius:2px;min-height:343px;}
+  .mono img{height:188px;}
+
+  /* papel com o monograma gravado */
+  .papel{position:relative;border-radius:2px;overflow:hidden;min-height:343px;
+         background:url('../texturas/papel_limpo.jpg') center/cover;display:flex;align-items:center;justify-content:center;}
+  .papel .grav{position:relative;width:52%;}
+  .papel .grav img{width:100%;display:block;}
+  .papel .sombra{position:absolute;inset:0;background:url('../marca_v2/03_monograma_grafite.svg') center/contain no-repeat;
+                 opacity:.30;filter:blur(1.2px);transform:translate(2px,3px);}
+  .papel .luz{position:absolute;inset:0;background:url('../marca_v2/03_monograma_grafite.svg') center/contain no-repeat;
+              opacity:.55;filter:blur(.6px) invert(1);transform:translate(-1.5px,-2px);mix-blend-mode:screen;}
+
+  /* rodape */
+  .rodape{display:grid;grid-template-columns:1.25fr .85fr 1.1fr;gap:0;margin:14px 54px 54px;
+          border:1px solid #E6DED0;border-radius:2px;background:#FBF8F2;}
+  .bloco{padding:30px 34px;}
+  .bloco + .bloco{border-left:1px solid #E6DED0;}
+  .rot{font-size:9.5px;letter-spacing:.3em;color:#9A9384;margin-bottom:20px;}
+
+  .cores{display:flex;gap:16px;}
+  .cor{text-align:center;}
+  .cor i{display:block;width:62px;height:62px;border-radius:50%;border:1px solid rgba(0,0,0,.06);}
+  .cor b{display:block;font-size:8.5px;letter-spacing:.14em;margin-top:10px;font-weight:500;color:#5C574C;}
+  .cor span{display:block;font-size:8px;letter-spacing:.08em;color:#A39B8B;margin-top:3px;}
+
+  .tipos{display:flex;gap:40px;}
+  .tipo .aa{font-size:46px;line-height:1;}
+  .tipo .nome{font-size:11px;color:#5C574C;margin-top:12px;}
+  .tipo .uso{font-size:8.5px;letter-spacing:.22em;color:#A39B8B;margin-top:5px;}
+  .serif{font-family:'Cormorant Garamond',Georgia,serif;}
+
+  .insp{display:flex;gap:10px;}
+  .insp div{width:112px;height:92px;border-radius:2px;background-size:cover;background-position:center;}
+</style>
+</head>
+<body>
+<div class="board">
+
+  <div class="topo">
+    <img src="../marca_v2/01_principal_grafite.svg" alt="Singular Prime">
+  </div>
+
+  <div class="grade">
+    <div class="hero"><img src="../marca_v2/01_principal_grafite.svg" alt=""></div>
+
+    <div class="escuro"><img src="../marca_v2/01_principal_clara.svg" alt=""></div>
+
+    <div class="dupla">
+      <div class="mono"><img src="../marca_v2/03_monograma_ouro.svg" alt=""></div>
+      <div class="papel">
+        <div class="grav">
+          <div class="sombra"></div>
+          <div class="luz"></div>
+          <img src="../marca_v2/03_monograma_grafite.svg" style="opacity:.10" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rodape">
+    <div class="bloco">
+      <div class="rot">PALETA DE CORES</div>
+      <div class="cores">
+        <div class="cor"><i style="background:#F4EFE6"></i><b>AREIA</b><span>#F4EFE6</span></div>
+        <div class="cor"><i style="background:#D9C8B0"></i><b>FENDI</b><span>#D9C8B0</span></div>
+        <div class="cor"><i style="background:#5E6F68"></i><b>VERDE RIO</b><span>#5E6F68</span></div>
+        <div class="cor"><i style="background:#88A1A0"></i><b>AZUL ATLÂNTICO</b><span>#88A1A0</span></div>
+        <div class="cor"><i style="background:#C79C7C"></i><b>TERRACOTA</b><span>#C79C7C</span></div>
+        <div class="cor"><i style="background:#232A27"></i><b>GRAFITE</b><span>#232A27</span></div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="rot">TIPOGRAFIA</div>
+      <div class="tipos">
+        <div class="tipo"><div class="aa serif">Aa</div><div class="nome serif">Cormorant Garamond</div><div class="uso">TÍTULOS</div></div>
+        <div class="tipo"><div class="aa">Aa</div><div class="nome">Jost</div><div class="uso">TEXTOS</div></div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="rot">UNIVERSO VISUAL</div>
+      <div class="insp">
+        <div style="background-image:url('../texturas/mar.jpg')"></div>
+        <div style="background-image:url('../texturas/parede_limpa.jpg')"></div>
+        <div style="background-image:url('../texturas/papel_limpo.jpg')"></div>
+        <div style="background-image:url('../texturas/parede_dir.jpg')"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
